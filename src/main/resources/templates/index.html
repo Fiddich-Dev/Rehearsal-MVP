@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>AI 대본 연습</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main class="source-screen">
+    <h1>AI 대본 연습</h1>
+    <p class="subtitle">대본을 입력하거나 업로드하세요</p>
+
+    <section class="source-section">
+        <h2>텍스트 입력</h2>
+        <p class="source-desc">예시 대본이 미리 입력되어 있습니다. 필요하면 자유롭게 수정하세요.</p>
+        <form class="text-form ingest-form" method="post" action="/script/text">
+            <textarea name="text" rows="12" th:text="${exampleText}"></textarea>
+            <button type="submit" class="submit-btn">대본으로 시작</button>
+        </form>
+    </section>
+
+    <section class="source-section">
+        <h2>파일 업로드</h2>
+        <p class="source-desc">.txt 또는 .pdf 파일을 업로드하세요</p>
+        <form class="upload-form ingest-form" method="post" action="/script/upload" enctype="multipart/form-data">
+            <input type="file" name="file" accept=".txt,.pdf,text/plain,application/pdf" required>
+            <button type="submit" class="submit-btn">업로드 후 시작</button>
+        </form>
+    </section>
+</main>
+
+<div id="loading-overlay" class="loading-overlay hidden" aria-hidden="true">
+    <div class="loading-card">
+        <div class="spinner" aria-hidden="true"></div>
+        <p class="loading-title">대본 분석 중…</p>
+        <p class="loading-sub">최대 1분 정도 걸릴 수 있어요. 창을 닫지 마세요.</p>
+    </div>
+</div>
+
+<script th:src="@{/js/ingest.js}"></script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+spring:
+  application:
+    name: rehearsal
+  thymeleaf:
+    cache: false
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+server:
+  port: 8080
+  error:
+    include-message: always
+
+app:
+  openai:
+    api-key: ${OPENAI_API_KEY:}
+    chat-model: ${OPENAI_CHAT_MODEL:gpt-5-nano}
+  tts:
+    api-key: ${TTS_API_KEY:}
+    model: eleven_v3
+    base-url: ${TTS_BASE_URL:https://api.elevenlabs.io}
+    voice-a: ${TTS_VOICE_A:}
+    voice-b: ${TTS_VOICE_B:}
+    # 정적 voice 풀 — LLM이 캐릭터마다 이 풀에서 voice_id를 골라 매핑.
+    # 비워두면 voice-a/voice-b alternating fallback 사용.
+    # description은 LLM이 캐릭터-voice 매칭에 쓰는 단서이므로 한국어 톤·연령·성별·성격 위주로 적는다.
+    voices:
+      # ── 여성 (7) ──
+      - id: "EXAVITQu4vr4xnSDxMaL"
+        name: "Sarah"
+        description: "여성. 성숙하고 안정감 있는 30대 톤, 신뢰감 있는 차분한 목소리. 멘토·선배·차분한 여주인공·전문가 캐릭터에 적합."
+      - id: "FGY2WhTYpPnrIDTdsKH5"
+        name: "Laura"
+        description: "여성. 톡톡 튀고 개성 있는 20-30대 톤, 활발하고 자기 주장 강한 느낌. 엉뚱하거나 활기찬 캐릭터에 적합."
+      - id: "Xb7hH8MSUJpSbSDYk0k2"
+        name: "Alice"
+        description: "여성. 밝고 명료한 20-30대 톤, 일상 대화에 자연스러움. 평범한 여주인공·친구 캐릭터."
+      - id: "XrExE9yKIg1WjnnlVkGX"
+        name: "Matilda"
+        description: "여성. 친근하고 다정한 30대 톤, 따뜻한 일상 분위기. 동료·언니·이웃 같은 친근한 캐릭터."
+      - id: "cgSgspJ2msm6clMCkdW9"
+        name: "Jessica"
+        description: "여성. 젊고 발랄한 20대 톤, 활기차고 명랑한 분위기. 후배·동생·발랄한 친구 캐릭터."
+      - id: "hpp4J3VqNfWAUOO0d1Us"
+        name: "Bella"
+        description: "여성. 부드럽고 감성적인 20대 톤, 섬세하고 여린 분위기. 로맨틱하거나 수줍은 캐릭터, 청순한 인물."
+      - id: "pFZP5JQG7iQjIQuC4Bku"
+        name: "Lily"
+        description: "여성. 온화하고 따뜻한 30-40대 톤, 안정적이고 다정함. 어머니·멘토·자상한 어른 여성 캐릭터."
+
+      # ── 남성 (13) ──
+      - id: "CwhRBWXzGAHq8TQ4Fs17"
+        name: "Roger"
+        description: "남성. 여유롭고 캐주얼한 30-40대 톤, 울림 있는 차분한 목소리. 형·삼촌·편한 어른 캐릭터."
+      - id: "IKne3meq5aSn9XLyUdCD"
+        name: "Charlie"
+        description: "남성. 깊고 자신감 있는 30대 톤, 활기차고 추진력 있음. 적극적인 주인공·리더·동료 캐릭터."
+      - id: "JBFqnCBsd6RMkjVDRZzb"
+        name: "George"
+        description: "남성. 따뜻하고 매력적인 40대 이야기꾼 톤. 내레이터·자상한 아버지·할아버지·인생 멘토 캐릭터."
+      - id: "N2lVS1w4EtoT3dr4eOWO"
+        name: "Callum"
+        description: "남성. 약간 거칠고 약은 30대 톤, 트릭스터 느낌. 반항적·짓궂은·악역·거친 캐릭터."
+      - id: "SOYHLrjzK2X1ezoPC6cr"
+        name: "Harry"
+        description: "남성. 긴장감 있고 예민한 20-30대 톤. 불안한·신경질적·예민한 캐릭터, 신경이 곤두선 인물."
+      - id: "TX3LPaxmHKxFdv7VOQHJ"
+        name: "Liam"
+        description: "남성. 또렷하고 명료한 20-30대 톤. 진중한 학생·기자·진지한 발화가 필요한 캐릭터."
+      - id: "bIHbv24MWmeRgasZH58o"
+        name: "Will"
+        description: "남성. 친근하고 다정한 20-30대 톤. 친구·동료·후배·따뜻한 일상 캐릭터."
+      - id: "cjVigY5qzO86Huf0OWal"
+        name: "Eric"
+        description: "남성. 안정적이고 균형 잡힌 30-40대 톤. 신뢰감 있는 어른·평범한 직장인·자상한 인물."
+      - id: "iP95p4xoKVk53GoZ742B"
+        name: "Chris"
+        description: "남성. 일상적이고 캐주얼한 20-30대 톤. 친구·동료·평범한 주인공·자연스러운 대화 캐릭터."
+      - id: "nPczCjzI2devNBz1zQrb"
+        name: "Brian"
+        description: "남성. 깊고 신뢰감 있는 40대 톤. 진지한 아버지·교수·내레이터·무게 있는 어른 캐릭터."
+      - id: "onwK4e9ZLuTAKqWW03F9"
+        name: "Daniel"
+        description: "남성. 묵직하고 진중한 40-50대 톤. 교수·기자·전문가·격식 있는 인물 캐릭터."
+      - id: "pNInz6obpgDQGcFmaJgB"
+        name: "Adam"
+        description: "남성. 깊고 차분한 30대 톤, 감정을 누르고 말하는 인상. 진지한 주인공·무게 있는 장면 캐릭터."
+      - id: "pqHfZKP75CvOlQylNhV4"
+        name: "Bill"
+        description: "남성. 신뢰감 있고 차분한 40-50대 톤. 멘토·교사·아버지·연륜 있는 어른 캐릭터."
+
+      # ── 중성/내레이터 (1) ──
+      - id: "SAz9YHcvj6GT2YYXdXww"
+        name: "River"
+        description: "중성적이고 차분한 톤, 성별 색채가 약함. 내레이터·관찰자·중성적 인물에 적합."
+  audio:
+    dir: ${AUDIO_DIR:../audio}

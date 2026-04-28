@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="|리허설 — ${script.title}|">리허설</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main class="rehearsal-screen"
+      th:attr="data-user-role=${userRole}">
+    <header class="top-bar">
+        <span class="progress">
+            <span id="cursor">1</span> / <span th:text="${#lists.size(script.lines)}">10</span>
+        </span>
+        <a class="restart-link" href="/">다시 시작</a>
+    </header>
+
+    <section class="tts-info" th:if="${voiceAssignments != null}">
+        <div class="tts-info-row">
+            <span class="tts-info-label">모델</span>
+            <span class="tts-info-value" th:text="${ttsModel}">eleven_multilingual_v2</span>
+        </div>
+        <div class="tts-info-row" th:each="va : ${voiceAssignments}">
+            <span class="tts-info-label" th:text="${va.character}">캐릭터</span>
+            <span class="tts-info-value">
+                <span th:text="${va.voiceName}">Voice</span>
+                <span class="tts-info-id" th:text="${va.voiceId}">voice_id</span>
+                <span class="tts-info-source" th:text="${va.source}">출처</span>
+            </span>
+        </div>
+    </section>
+
+    <ol class="lines">
+        <li th:each="line : ${script.lines}"
+            th:id="|line-${line.index}|"
+            th:classappend="${line.character == userRole} ? ' user' : ' ai'"
+            th:attr="data-index=${line.index},data-character=${line.character},data-text=${line.text}">
+            <span class="marker">□</span>
+            <span class="character" th:text="${line.character}">캐릭터</span>
+            <span class="text" th:text="${line.text}">대사</span>
+        </li>
+    </ol>
+
+    <section class="status">
+        <div id="status-msg" class="status-msg">준비됨</div>
+        <button id="manual-next" class="manual-next" type="button">▶ 직접 넘기기 (Space)</button>
+    </section>
+
+    <audio id="player" preload="auto"></audio>
+
+    <section id="done-screen" class="done hidden">
+        <h2>리허설 완료!</h2>
+        <a href="/">다시 시작</a>
+    </section>
+</main>
+
+<script th:src="@{/js/rehearsal.js}"></script>
+</body>
+</html>

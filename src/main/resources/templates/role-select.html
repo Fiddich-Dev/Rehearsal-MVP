@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>역할 선택</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main class="role-screen">
+    <h1>역할 선택</h1>
+    <p class="subtitle" th:text="${script.title}">대본 제목</p>
+    <p class="instruction">당신의 역할을 선택하세요</p>
+
+    <form class="role-buttons" method="get" action="/rehearsal">
+        <button type="submit" name="role"
+                th:each="ch : ${script.characters}"
+                th:value="${ch}"
+                th:text="|${ch} 역할로 연습|">
+            역할
+        </button>
+    </form>
+
+    <p class="back-link"><a href="/">대본 다시 입력</a></p>
+</main>
+</body>
+</html>

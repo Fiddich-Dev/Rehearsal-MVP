@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>오류 — AI 대본 연습</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main class="error-screen">
+    <p class="error-status" th:text="${status}">500</p>
+
+    <h1 class="error-headline" th:switch="${status != null ? status.toString() : '500'}">
+        <span th:case="'400'">요청을 이해하지 못했습니다</span>
+        <span th:case="'404'">페이지를 찾지 못했습니다</span>
+        <span th:case="'413'">파일이 너무 큽니다</span>
+        <span th:case="'422'">대본을 처리하지 못했습니다</span>
+        <span th:case="'500'">예상치 못한 오류가 발생했습니다</span>
+        <span th:case="'502'">AI 서비스에 연결하지 못했습니다</span>
+        <span th:case="'503'">AI 서비스가 준비되지 않았습니다</span>
+        <span th:case="*">문제가 발생했습니다</span>
+    </h1>
+
+    <p class="error-detail" th:if="${message != null and !message.isEmpty()}" th:text="${message}">
+        상세 메시지
+    </p>
+
+    <p class="error-hint" th:switch="${status != null ? status.toString() : ''}">
+        <span th:case="'422'">대본 형식이 인식되지 않았을 수 있습니다. 등장인물과 대사가 명확히 구분된 텍스트로 다시 시도해 보세요.</span>
+        <span th:case="'503'">서버에 OPENAI_API_KEY 환경변수가 설정되어 있는지 확인해 주세요.</span>
+        <span th:case="'502'">잠시 후 다시 시도해 주세요.</span>
+        <span th:case="*"></span>
+    </p>
+
+    <a class="error-action" href="/">처음으로 돌아가기</a>
+</main>
+</body>
+</html>
