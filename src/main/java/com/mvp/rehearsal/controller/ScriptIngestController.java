@@ -4,6 +4,7 @@ import com.mvp.rehearsal.dto.Script;
 import com.mvp.rehearsal.service.ActiveScriptStore;
 import com.mvp.rehearsal.service.PdfExtractor;
 import com.mvp.rehearsal.service.ScriptParserService;
+import com.mvp.rehearsal.service.ScriptService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -22,15 +23,24 @@ public class ScriptIngestController {
     private final ScriptParserService parser;
     private final PdfExtractor pdfExtractor;
     private final ActiveScriptStore store;
+    private final ScriptService scriptService;
 
     public ScriptIngestController(
             ScriptParserService parser,
             PdfExtractor pdfExtractor,
-            ActiveScriptStore store
+            ActiveScriptStore store,
+            ScriptService scriptService
     ) {
         this.parser = parser;
         this.pdfExtractor = pdfExtractor;
         this.store = store;
+        this.scriptService = scriptService;
+    }
+
+    @PostMapping("/script/preset")
+    public String submitPreset(HttpSession session) {
+        store.put(session, scriptService.getPresetScript());
+        return "redirect:/role-select";
     }
 
     @PostMapping("/script/text")

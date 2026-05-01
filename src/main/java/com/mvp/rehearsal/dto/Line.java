@@ -7,9 +7,15 @@ public record Line(
         String ttsText,
         String beatGoal,
         String subtext,
-        VoiceSettings voiceSettings
+        VoiceSettings voiceSettings,
+        String audioUrl
 ) {
     public Line(int index, String character, String text) {
-        this(index, character, text, null, null, null, null);
+        this(index, character, text, null, null, null, null, null);
+    }
+
+    public Line(int index, String character, String text, String ttsText,
+                String beatGoal, String subtext, VoiceSettings voiceSettings) {
+        this(index, character, text, ttsText, beatGoal, subtext, voiceSettings, null);
     }
 }
