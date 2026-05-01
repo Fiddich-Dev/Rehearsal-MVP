@@ -26,7 +26,26 @@ public class ScriptService {
             )
     );
 
+    private static final Script PRESET_SUYA_JUNHO = new Script(
+            "AI 상대역 — 데모",
+            List.of("수아", "준호"),
+            List.of(
+                    new Line(0, "수아", "야, 너 요새 어떻게 연습해?", null, null, null, null,
+                            "/preset-audio/suya_1.mp3"),
+                    new Line(1, "준호", "그냥 대본보면서 연습하지."),
+                    new Line(2, "수아", "나 요즘 쓰는 거 있는데, AI가 상대역 해주는 웹이야.",
+                            null, null, null, null, "/preset-audio/suya_2.mp3"),
+                    new Line(3, "준호", "엥? 그런게 진짜 돼? 사람처럼 받아줘?"),
+                    new Line(4, "수아", "대본만 올리면 바로 연습 시작돼. 자, 한번 써봐.",
+                            null, null, null, null, "/preset-audio/suya_3.mp3")
+            )
+    );
+
     public Script getScript() {
         return FIXED;
+    }
+
+    public Script getPresetScript() {
+        return PRESET_SUYA_JUNHO;
     }
 }

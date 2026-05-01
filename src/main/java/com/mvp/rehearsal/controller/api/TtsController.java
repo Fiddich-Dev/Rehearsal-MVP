@@ -40,6 +40,9 @@ public class TtsController {
     public TtsResponse tts(@RequestBody TtsRequest req, HttpSession session) {
         Script script = activeScriptStore.get(session).orElseGet(scriptService::getScript);
         Line line = resolveLine(script, req);
+        if (line.audioUrl() != null && !line.audioUrl().isBlank()) {
+            return new TtsResponse(line.audioUrl());
+        }
         String url = ttsService.synthesize(line, script);
         return new TtsResponse(url);
     }
